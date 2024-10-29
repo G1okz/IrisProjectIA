@@ -1,105 +1,87 @@
-//Inicializar red neuronal
-var network = new brain.NeuralNetwork();
+// Inicializar red neuronal
+const network = new brain.NeuralNetwork();
 
-network.train([
-    // Entrada id, Iris-setosa = output0, Iris-versicolor = output1, Iris-virginica = output2
-    {
-        input: {
-            id: 1,
-            sepaLength: 5.1,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
+// Función para cargar el archivo CSV
+function loadCSV(callback) {
+    Papa.parse("../Iris.csv", {
+        download: true,
+        header: true,
+        complete: function(results) {
+            console.log("Archivo CSV cargado correctamente.");
+            document.getElementById("status").innerText = "Archivo CSV cargado correctamente.";
+            callback(results.data);
+        },
+        error: function(err) {
+            console.error("Error al cargar el archivo CSV:", err);
+            document.getElementById("status").innerText = "Error al cargar el archivo CSV.";
         }
-    },
-    {
-        input: {
-            id: 2,
-            sepaLength: 4.9,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
-        }
-    },
-    {
-        input: {
-            id: 3,
-            sepaLength: 4.7,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
-        }
-    },
-    {
-        input: {
-            id: 4,
-            sepaLength: 5.1,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
-        }
-    },
-    {
-        input: {
-            id: 5,
-            sepaLength: 5.1,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
-        }
-    },
-    {
-        input: {
-            id: 6,
-            sepaLength: 5.1,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
-        }
-    },
-    {
-        input: {
-            id: 7,
-            sepaLength: 5.1,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
-        }
-    },
-    {
-        input: {
-            id: 8,
-            sepaLength: 5.1,
-            sepaWidth: 3.5,
-            petalLength: 1.4,
-            petalWidth: 0.2,
-            output: 0
-        }
-    },
+    });
+}
 
-])
+// Función para entrenar la red neuronal
+function trainNetwork(data) {
+    const trainingData = data.map(row => ({
+        input: {
+            sepalLength: parseFloat(row.SepalLengthCm),
+            sepalWidth: parseFloat(row.SepalWidthCm),
+            petalLength: parseFloat(row.PetalLengthCm),
+            petalWidth: parseFloat(row.PetalWidthCm)
+        },
+        output: {
+            setosa: row.Species === "Iris-setosa" ? 1 : 0,
+            versicolor: row.Species === "Iris-versicolor" ? 1 : 0,
+            virginica: row.Species === "Iris-virginica" ? 1 : 0
+        }
+    }));
+    network.train(trainingData);
+    console.log("Red neuronal entrenada correctamente.");
+    document.getElementById("status").innerText = "Red neuronal entrenada correctamente.";
+}
 
-function update(specie) {
-    var id = specie.id;
-    var sepaLength = specie.sepalLength;
-    var sepaWidth = specie.sepalWidth;
-    var petalLength = specie.petalLength;
-    var petalWidth = specie.petalWidth;
-    var div = document.getElementById("fondo");
+// Llamar a la función para cargar el archivo CSV y entrenar la red neuronal
+loadCSV(trainNetwork);
 
-    var entrada = {
-        id: id,
-        sepaLength: sepaLength,
-        sepaWidth: sepaWidth,
-        petalLength: petalLength,
-        petalWidth: petalWidth
+function classifyFlower() {
+    // Obtener valores de entrada
+    const sepalLength = parseFloat(document.getElementById("sepalLength").value);
+    const sepalWidth = parseFloat(document.getElementById("sepalWidth").value);
+    const petalLength = parseFloat(document.getElementById("petalLength").value);
+    const petalWidth = parseFloat(document.getElementById("petalWidth").value);
+
+    // Verificar si alguno de los valores es mayor que 10
+    if (sepalLength > 10 || sepalWidth > 10 || petalLength > 10 || petalWidth > 10) {
+        displayResult("Desconocido", 0);
+        return;
     }
 
+    // Realizar predicción
+    const result = network.run({
+        sepalLength: sepalLength,
+        sepalWidth: sepalWidth,
+        petalLength: petalLength,
+        petalWidth: petalWidth
+    });
+
+    // Obtener la especie y el porcentaje de confianza
+    const { species, confidencePercentage } = getPrediction(result);
+
+    // Mostrar el resultado
+    displayResult(species, confidencePercentage);
+}
+
+function getPrediction(result) {
+    let species = 'Desconocido';
+    let maxConfidence = 0;
+    for (const [key, value] of Object.entries(result)) {
+        if (value > maxConfidence) {
+            maxConfidence = value;
+            species = key;
+        }
+    }
+    const confidencePercentage = (maxConfidence * 100).toFixed(2);
+    return { species, confidencePercentage };
+}
+
+function displayResult(species, confidencePercentage) {
+    document.getElementById("result").innerText = `${species} (${confidencePercentage}%)`;
 }
