@@ -1,4 +1,5 @@
-Clasificador de Flores Iris 🌸
+Clasificador de Flores Iris 🌸 
+
 Este repositorio contiene una aplicación web que clasifica flores Iris en distintas especies (Iris-setosa, Iris-versicolor, Iris-virginica) utilizando una red neuronal creada con brain.js. Este proyecto incluye una interfaz simple en HTML y JavaScript para ingresar las características de la flor y visualizar el resultado de la predicción.
 
 🚀 Funcionalidades
