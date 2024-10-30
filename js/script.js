@@ -10,7 +10,7 @@ function loadCSV(callback) {
             console.log("Archivo CSV cargado correctamente.");
             document.getElementById("status").innerText = "Archivo CSV cargado correctamente.";
             const data = results.data;
-            const randomData = getRandomData(data, 50);
+            const randomData = getRandomData(data, 60);
             callback(randomData);
         },
         error: function(err) {
