@@ -9,13 +9,20 @@ function loadCSV(callback) {
         complete: function(results) {
             console.log("Archivo CSV cargado correctamente.");
             document.getElementById("status").innerText = "Archivo CSV cargado correctamente.";
-            callback(results.data);
+            const data = results.data;
+            const randomData = getRandomData(data, 50);
+            callback(randomData);
         },
         error: function(err) {
             console.error("Error al cargar el archivo CSV:", err);
             document.getElementById("status").innerText = "Error al cargar el archivo CSV.";
         }
     });
+}
+
+function getRandomData(data, numRows) {
+    const suffled = data.sort(() => 0.5 - Math.random());
+    return suffled.slice(0, numRows);
 }
 
 // Función para entrenar la red neuronal

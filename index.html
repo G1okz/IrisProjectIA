@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clasificación de Flores Iris</title>
 </head>
+
 <body>
     <h1>Clasificador de Flores Iris</h1>
-    
     <!-- Inputs para las características de la flor -->
     <label>Sepal Length:</label><input id="sepalLength" type="number"><br>
     <label>Sepal Width:</label><input id="sepalWidth" type="number"><br>
     <label>Petal Length:</label><input id="petalLength" type="number"><br>
     <label>Petal Width:</label><input id="petalWidth" type="number"><br>
     <button onclick="classifyFlower()">Clasificar</button>
-    
+
     <h2>Resultado: <span id="result">...</span></h2>
     <h2>Estado: <span id="status">Cargando...</span></h2>
-    
     <!-- Cargar PapaParse y script.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://unpkg.com/brain.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>
