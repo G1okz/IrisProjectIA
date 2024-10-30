@@ -3,18 +3,19 @@
 Este repositorio contiene una aplicación web que clasifica flores Iris en distintas especies (Iris-setosa, Iris-versicolor, Iris-virginica) utilizando una red neuronal creada con brain.js. Este proyecto incluye una interfaz simple en HTML y JavaScript para ingresar las características de la flor y visualizar el resultado de la predicción.
 
 ## 🚀 Funcionalidades
-Clasificación de especies: Clasifica una flor en su especie correspondiente según las características ingresadas.
-Interfaz amigable: Permite a los usuarios ingresar las características de la flor de manera sencilla.
-Estado en tiempo real: Indica el estado del modelo y muestra el resultado de la predicción directamente en la página.
+Clasificación de especies: 
+- Clasifica una flor en su especie correspondiente según las características ingresadas.
+- Interfaz amigable: Permite a los usuarios ingresar las características de la flor de manera sencilla.
+- Estado en tiempo real: Indica el estado del modelo y muestra el resultado de la predicción directamente en la página.
 
 ## 📚 Tecnologías Utilizadas
-HTML/CSS/JavaScript: Estructura y lógica de la interfaz de usuario.
-PapaParse: Para cargar y manipular datos CSV si se necesitan datos de entrenamiento adicionales.
-Brain.js: Biblioteca para la creación y entrenamiento de redes neuronales.
+- HTML/JavaScript: Estructura y lógica de la interfaz de usuario.
+- PapaParse: Para cargar y manipular datos CSV si se necesitan datos de entrenamiento adicionales.
+- Brain.js: Biblioteca para la creación y entrenamiento de redes neuronales.
 
 ## 📂 Estructura de Archivos
-index.html: Página principal con el formulario de entrada y el botón para la clasificación.
-js/script.js: Contiene el código de la red neuronal y la lógica para manejar la clasificación.
+- index.html: Página principal con el formulario de entrada y el botón para la clasificación.
+- js/script.js: Contiene el código de la red neuronal y la lógica para manejar la clasificación.
 
 ## 🛠 Requisitos
 Navegador compatible con JavaScript ES6.
